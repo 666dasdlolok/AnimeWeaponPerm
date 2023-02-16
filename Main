@@ -1,0 +1,913 @@
+-- anime weapon sim
+
+
+
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/UI-Interface/CustomFIeld/main/RayField.lua'))()
+
+local Window = Rayfield:CreateWindow({
+    Name = "Anime Weapon Simulator",
+    LoadingTitle = "Anime Weapon Simulator",
+    LoadingSubtitle = "by Sky Hub",
+    ConfigurationSaving = {
+       Enabled = true,
+       FolderName = "Sky Hub", -- Create a custom folder for your hub/game
+       FileName = "Sky Hub AWS"
+    },
+    Discord = {
+       Enabled = true,
+       Invite = "eu2ygUDZeh", -- The Discord invite code, do not include discord.gg/
+       RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+    },
+    KeySystem = false, -- Set this to true to use our key system
+    KeySettings = {
+       Title = "Sky - Hub Key System",
+       Subtitle = "Key System",
+       Note = "Join the discord (discord.gg/eu2ygUDZeh)",
+       FileName = "Sky - Hub Normal - WPS",
+       SaveKey = true,
+       GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+       Key = "NewKeyNewMeCringe!"
+    }
+ })
+
+ local Tab = Window:CreateTab("Auto Farm", 4483362458) -- Title, Image
+
+ local vu = game:GetService("VirtualUser")
+ game:GetService("Players").LocalPlayer.Idled:connect(function()
+ vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+ wait(1)
+ vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+ end)
+
+ local args = {[1] = "\229\137\175\230\156\172"}
+ game:GetService("ReplicatedStorage").ServerMsg.Teleport:FireServer(unpack(args))
+
+ wait(1.5)
+
+for i,v in ipairs(game:GetService("Workspace"):GetChildren()) do
+   if v.Name == "场景" then 
+      v.Name = "Maps"
+   end   
+end
+
+for i,v in ipairs(game:GetService("Workspace").Enemy:GetChildren()) do
+   if v.Name == "简单地下城" then
+      v.Name = "TimeTrialMobs1"
+   end
+end
+
+for i,v in ipairs(game:GetService("Workspace").Enemy:GetChildren()) do
+   if v.Name == "困难地下城" then
+      v.Name = "TimeTrialMobs2"
+   end
+end
+
+for i,v in ipairs(game:GetService("Workspace").Enemy:GetChildren()) do
+   if v.Name == "普通地下城" then
+      v.Name = "TimeTrialMobs3"
+   end
+end
+
+wait(.5)
+
+for i,v in ipairs(game:GetService("Workspace"):GetChildren()) do
+   if v.Name == "Maps" then
+      v.Name = "TimeTrialPath1"
+   end
+end
+
+wait(.5)
+
+for i,v in ipairs(game:GetService("Workspace").TimeTrialPath1:GetChildren()) do
+   if v.Name == "副本" then
+      v.Name = "TimeTrialPath2"
+   end
+end
+
+wait(.5)
+
+
+for i,v in ipairs(game:GetService("Workspace").TimeTrialPath1.TimeTrialPath2:GetChildren()) do
+   if v.Name == "功能" then
+      v.Name = "TimeTrialPath3"
+   end
+end
+
+
+wait(.5)
+
+for i,v in ipairs(game:GetService("Workspace").TimeTrialPath1.TimeTrialPath2.TimeTrialPath3:GetChildren()) do
+   if v.Name == "Hard" then
+      v.Name = "Difficult"
+      task.wait(.1)
+      for i,v in ipairs(v:GetChildren()) do
+         if v.Name == "交互part" then
+            v.Name = "DifficultTrialDoor"
+         end
+      end
+   end
+end
+
+wait(.5)
+
+for i,v in ipairs(game:GetService("Workspace").TimeTrialPath1.TimeTrialPath2.TimeTrialPath3.Difficult.DifficultTrialDoor:GetChildren()) do
+   if v:IsA("ProximityPrompt") then
+      v.Name = "DifficultProxy"
+   end
+end
+
+wait(.5)
+
+for i,v in ipairs(game:GetService("Workspace").TimeTrialPath1.TimeTrialPath2.TimeTrialPath3:GetChildren()) do
+   if v.Name == "Easy" then
+      task.wait(.1)
+         for i,v in ipairs(v:GetChildren()) do
+         if v.Name == "交互part" then
+            v.Name = "EasyTrialDoor"
+      end
+end
+   end
+end
+
+for i,v in ipairs(game:GetService("Workspace").TimeTrialPath1.TimeTrialPath2.TimeTrialPath3.Easy.EasyTrialDoor:GetChildren()) do
+   if v:IsA("ProximityPrompt") then
+      v.Name = "EasyProxy"
+   end
+end
+
+wait(.5)
+
+for i,v in ipairs(game:GetService("Workspace").TimeTrialPath1.TimeTrialPath2.TimeTrialPath3:GetChildren()) do
+   if v.Name == "Normal" then
+      task.wait(.1)
+      for i,v in ipairs(v:GetChildren()) do
+         if v.Name == "交互part" then
+            v.Name = "NormalTrialDoor"      
+end
+      end
+   end
+end
+
+wait(.5)
+
+for i,v in ipairs(game:GetService("Workspace").TimeTrialPath1.TimeTrialPath2.TimeTrialPath3.Normal.NormalTrialDoor:GetChildren()) do
+   if v:IsA("ProximityPrompt") then
+      v.Name = "NormalProxy"
+   end
+end
+
+
+for i,v in ipairs(game:GetService("Workspace"):GetChildren()) do
+   if v.Name == "倒计时" then
+      v.Name = "TimeTrialWait"
+   end
+end
+
+
+
+wait(1)
+
+local AllEnemy = {}
+
+for i,v in ipairs(game:GetService("Workspace").Enemy:GetDescendants()) do
+   if v.Name == "NameLabel" then
+      if not table.find(AllEnemy, v.Text) then
+         table.insert(AllEnemy, v.Text)
+      end
+   end
+end
+
+game:GetService("ReplicatedStorage").ServerMsg.GetGroupReward:FireServer()
+
+
+local Section = Tab:CreateSection("Select Stuff",false) -- The 2nd argument is to tell if its only a Title and doesnt contain elements
+
+
+local Dropdown = Tab:CreateDropdown({
+   Name = "Select Map",
+   Options = {"1","2","3", "4", "5", "6"},
+   CurrentOption = " ",
+   Flag = "selMap1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Option)
+      _G.selMap1 = Option;
+   end,
+})
+
+
+local Dropdown = Tab:CreateDropdown({
+   Name = "Select Mob 1",
+   Options = AllEnemy,
+   CurrentOption = " ",
+   Flag = "MobName1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Option)
+      _G.MobName1 = Option;
+   end,
+})
+
+
+local Dropdown = Tab:CreateDropdown({
+   Name = "Select Mob 2",
+   Options = AllEnemy,
+   CurrentOption = " ",
+   Flag = "MobName2", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Option)
+      _G.MobName2 = Option;
+   end,
+})
+
+
+
+local Section = Tab:CreateSection("Auto Farm",false) -- The 2nd argument is to tell if its only a Title and doesnt contain elements
+
+local enemies = game:GetService("Workspace").Enemy
+
+local Toggle = Tab:CreateToggle({
+   Name = "Auto Teleport To Selected Map's Mobs",
+   CurrentValue = false,
+   Flag = "autoFarm1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      _G.autoFarm1 = Value;  
+   end,
+})
+
+task.spawn(function()
+   while wait() do
+      if _G.autoFarm1 and _G.selMap1 ~= nil then
+         for i,v in ipairs(enemies[_G.selMap1]:GetChildren()) do
+            if v:IsA("Model") then
+               pcall(function()
+                  if v:FindFirstChild("HP") and v.HP.Value ~= 0 then
+                     game.Players.LocalPlayer.Character:PivotTo(v:GetPivot())
+                  end
+               end)
+            end
+         end
+      end
+   end
+end)
+
+
+local Toggle = Tab:CreateToggle({
+   Name = "Auto Teleport To Selected Mob 1",
+   CurrentValue = false,
+   Flag = "autoFarm2", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      _G.autoFarm2 = Value;  
+   end,
+})
+
+task.spawn(function()
+   while wait() do
+      if _G.autoFarm2 and _G.MobName1 ~= nil then
+         for i,v in ipairs(enemies[_G.selMap1]:GetChildren()) do
+            if v:IsA("Model") and v.EnemyTag.NameLabel.Text == _G.MobName1 then
+               pcall(function()
+                  if v:FindFirstChild("HP") and v.HP.Value ~= 0 then
+                     game.Players.LocalPlayer.Character:PivotTo(v:GetPivot())
+                     task.wait()
+                  end
+               end)
+            end
+         end
+      end
+   end
+end)
+
+local Toggle = Tab:CreateToggle({
+   Name = "Auto Teleport To Selected Mob 2",
+   CurrentValue = false,
+   Flag = "autoFarm3", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      _G.autoFarm3 = Value;  
+   end,
+})
+
+task.spawn(function()
+   while wait() do
+      if _G.autoFarm3 and _G.MobName2 ~= nil then
+         for i,v in ipairs(enemies[_G.selMap1]:GetChildren()) do
+            if v:IsA("Model") and v.EnemyTag.NameLabel.Text == _G.MobName2 then
+               pcall(function()
+                  if v:FindFirstChild("HP") and v.HP.Value ~= 0 then
+                     game.Players.LocalPlayer.Character:PivotTo(v:GetPivot())
+                     task.wait()
+                  end
+               end)
+            end
+         end
+      end
+   end
+end)
+
+
+local Toggle = Tab:CreateToggle({
+   Name = "Auto Attack",
+   CurrentValue = false,
+   Flag = "autoKill", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      _G.autoKill = Value;  
+   end,
+})
+
+task.spawn(function()
+   while wait() do
+      if _G.autoKill then
+         game:GetService("ReplicatedStorage").System.SystemClick.Click:FireServer()
+         task.wait()
+      end
+   end
+end)
+
+
+local Section = Tab:CreateSection("Misc Stuff",false) -- The 2nd argument is to tell if its only a Title and doesnt contain elements
+
+
+
+local Toggle = Tab:CreateToggle({
+   Name = "Auto Collect Coins",
+   CurrentValue = false,
+   Flag = "autoCollectCoins", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      _G.autoCollectCoins = Value;  
+   end,
+})
+
+task.spawn(function()
+   while wait() do
+      if _G.autoCollectCoins then
+         for i,v in ipairs(game:GetService("Workspace"):GetChildren()) do
+            if v.Name == "2D物品" then
+               v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+               task.wait()
+            end
+         end
+      end
+   end
+end)
+
+local Toggle = Tab:CreateToggle({
+   Name = "Auto Pickup Swords",
+   CurrentValue = false,
+   Flag = "autoPickupSwords", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      _G.autoPickupSwords = Value;  
+   end,
+})
+
+task.spawn(function()
+   while wait() do
+      if _G.autoPickupSwords then
+         for i,v in ipairs(game:GetService("Workspace"):GetChildren()) do
+            if v:IsA("Model") then
+               if v:FindFirstChild("TouchPart") then
+                  v.TouchPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+               task.wait()
+               end
+            end
+         end
+      end
+   end
+end)
+
+local Section = Tab:CreateSection("Time Trial",false) -- The 2nd argument is to tell if its only a Title and doesnt contain elements
+
+
+local Label = Tab:CreateLabel("Dont Use autofarm mobs and auto time trial both at once, only use 1 at a time")
+
+local Toggle = Tab:CreateToggle({
+   Name = "Auto Teleport To Easy Trial Mob's",
+   CurrentValue = false,
+   Flag = "autoTrial1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      _G.autoTrial1 = Value;  
+   end,
+})
+
+task.spawn(function()
+   while wait() do
+      if _G.autoTrial1 then
+         for i,v in ipairs(enemies.TimeTrialMobs1:GetChildren()) do
+            if v:IsA("Model") then
+               pcall(function()
+                  if v:FindFirstChild("HP") and v.HP.Value ~= 0 then
+                     game.Players.LocalPlayer.Character:PivotTo(v:GetPivot())
+                  end
+               end)
+            end
+         end
+      end
+   end
+end)
+
+local Toggle = Tab:CreateToggle({
+   Name = "Auto Teleport To Difficult Trial Mob's",
+   CurrentValue = false,
+   Flag = "autoTrial2", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      _G.autoTrial2 = Value;  
+   end,
+})
+
+task.spawn(function()
+   while wait() do
+      if _G.autoTrial2 then
+         for i,v in ipairs(enemies.TimeTrialMobs2:GetChildren()) do
+            if v:IsA("Model") then
+               pcall(function()
+                  if v:FindFirstChild("HP") and v.HP.Value ~= 0 then
+                     game.Players.LocalPlayer.Character:PivotTo(v:GetPivot())
+                  end
+               end)
+            end
+         end
+      end
+   end
+end)
+
+local Toggle = Tab:CreateToggle({
+   Name = "Auto Teleport To Normal Trial Mob's",
+   CurrentValue = false,
+   Flag = "autoTrial3", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      _G.autoTrial3 = Value;  
+   end,
+})
+
+task.spawn(function()
+   while wait() do
+      if _G.autoTrial3 then
+         for i,v in ipairs(enemies.TimeTrialMobs3:GetChildren()) do
+            if v:IsA("Model") then
+               pcall(function()
+                  if v:FindFirstChild("HP") and v.HP.Value ~= 0 then
+                     game.Players.LocalPlayer.Character:PivotTo(v:GetPivot())
+                  end
+               end)
+            end
+         end
+      end
+   end
+end)
+
+local Section = Tab:CreateSection("Auto Join Time Trial",false) -- The 2nd argument is to tell if its only a Title and doesnt contain elements
+
+
+local Toggle = Tab:CreateToggle({
+   Name = "Auto Join Easy Time Trial",
+   CurrentValue = false,
+   Flag = "autoJoinEasy", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      _G.autoJoinEasy = Value;  
+   end,
+})
+
+task.spawn(function()
+   while wait() do
+      if _G.autoJoinEasy then
+         pcall(function()
+            if game:GetService("Workspace").TimeTrialWait["Easy_Wait"].Value ~= -1 then
+               task.wait(.1)
+               game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").TimeTrialPath1.TimeTrialPath2.TimeTrialPath3.Easy.EasyTrialDoor.CFrame
+               task.wait(2)
+               fireproximityprompt(game:GetService("Workspace").TimeTrialPath1.TimeTrialPath2.TimeTrialPath3.Easy.EasyTrialDoor.EasyProxy)
+               task.wait(10)
+            end
+         end)
+      end
+   end
+end)
+
+
+local Toggle = Tab:CreateToggle({
+   Name = "Auto Join Normal Time Trial",
+   CurrentValue = false,
+   Flag = "autoJoinNormal", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      _G.autoJoinNormal = Value;  
+   end,
+})
+
+task.spawn(function()
+   while wait() do
+      if _G.autoJoinNormal then
+         pcall(function()
+            if game:GetService("Workspace").TimeTrialWait["Normal_Wait"].Value ~= -1 then
+               task.wait(.1)
+               game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").TimeTrialPath1.TimeTrialPath2.TimeTrialPath3.Normal.NormalTrialDoor.CFrame
+               task.wait(2)
+               fireproximityprompt(game:GetService("Workspace").TimeTrialPath1.TimeTrialPath2.TimeTrialPath3.Normal.NormalTrialDoor.NormalProxy)
+               task.wait(10)
+            end
+         end)
+      end
+   end
+end)
+
+local Toggle = Tab:CreateToggle({
+   Name = "Auto Join Difficult Time Trial",
+   CurrentValue = false,
+   Flag = "autoJoinDifficult", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      _G.autoJoinEasy = Value;  
+   end,
+})
+
+task.spawn(function()
+   while wait() do
+      if _G.autoJoinDifficult then
+         pcall(function()
+            if game:GetService("Workspace").TimeTrialWait["Hard_Wait"].Value ~= -1 then
+               task.wait(.1)
+               game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").TimeTrialPath1.TimeTrialPath2.TimeTrialPath3.Difficult.DifficultTrialDoor.CFrame
+               task.wait(2)
+               fireproximityprompt(game:GetService("Workspace").TimeTrialPath1.TimeTrialPath2.TimeTrialPath3.Difficult.DifficultTrialDoor.DifficultProxy)
+               task.wait(10)
+            end
+         end)
+      end 
+   end
+end)
+
+
+local Toggle = Tab:CreateToggle({
+   Name = "Auto Join Time Trial Room",
+   CurrentValue = false,
+   Flag = "autoJoinTrialRoom", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      _G.autoJoinTrialRoom = Value;  
+   end,
+})
+
+
+task.spawn(function()
+   while wait() do
+      if _G.autoJoinTrialRoom then
+         pcall(function()
+            if game:GetService("Workspace").TimeTrialWait["Easy_Wait"].Value == 5 or game:GetService("Workspace").TimeTrialWait["Normal_Wait"].Value == 5 or game:GetService("Workspace").TimeTrialWait["Hard_Wait"].Value == 5 then
+               local args = {[1] = "\229\137\175\230\156\172"}
+               game:GetService("ReplicatedStorage").ServerMsg.Teleport:FireServer(unpack(args))
+               task.wait(1)
+            end
+         end)
+      end
+   end
+end)
+
+
+local Tab = Window:CreateTab("Eggs & Pets", 4483362458) -- Title, Image
+
+local Section = Tab:CreateSection("Eggs",false) -- The 2nd argument is to tell if its only a Title and doesnt contain elements
+
+local Dropdown = Tab:CreateDropdown({
+   Name = "Select Egg",
+   Options = {"1","2","3", "4", "5", "6"},
+   CurrentOption = " ",
+   Flag = "selEgg1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Option)
+      _G.selEgg1 = Option;
+   end,
+})
+
+
+local Toggle = Tab:CreateToggle({
+   Name = "Auto Open Selected Egg",
+   CurrentValue = false,
+   Flag = "autoEgg", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      _G.autoEgg1 = Value;  
+   end,
+})
+
+task.spawn(function()
+   while wait() do
+      if _G.autoEgg1 and _G.selEgg1 ~= nil then
+            local args = {[1] = tonumber(700000 .._G.selEgg1),[2] = 1}
+            game:GetService("ReplicatedStorage").Tool.DrawUp.Msg.DrawHero:InvokeServer(unpack(args))
+         wait()
+      end
+   end
+end)
+
+local Section = Tab:CreateSection("Pets",false) -- The 2nd argument is to tell if its only a Title and doesnt contain elements
+
+local Toggle = Tab:CreateToggle({
+   Name = "Auto Equip Best Pets",
+   CurrentValue = false,
+   Flag = "autoHeroBest", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      _G.autoHeroBest = Value;  
+   end,
+})
+
+task.spawn(function()
+   while wait() do
+      if _G.autoHeroBest then
+         game:GetService("ReplicatedStorage").ServerMsg.WearBestPet:InvokeServer()
+         wait(5)
+      end
+   end
+end)
+
+
+
+
+
+
+local Tab = Window:CreateTab("Misc", 4483362458) -- Title, Image
+
+local Toggle = Tab:CreateToggle({
+   Name = "Auto Ascend",
+   CurrentValue = false,
+   Flag = "autoAsc", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      _G.autoAsc = Value;  
+   end,
+})
+
+task.spawn(function()
+   while wait() do
+      if _G.autoAsc then
+         local args = {[1] = "\233\135\141\231\148\159"}
+         game:GetService("ReplicatedStorage").Msg.RemoteEvent:FireServer(unpack(args))
+         wait(10)
+      end
+   end
+end)
+
+
+local Toggle = Tab:CreateToggle({
+   Name = "Auto Equip Best Sword",
+   CurrentValue = false,
+   Flag = "autoBestSword", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      _G.autoBestSword = Value;  
+   end,
+})
+
+task.spawn(function()
+   while wait() do
+      if _G.autoBestSword then
+         local args = {[1] = "\232\163\133\229\164\135\230\156\128\228\189\179\230\173\166\229\153\168"}
+         game:GetService("ReplicatedStorage").Msg.RemoteEvent:FireServer(unpack(args))
+         wait(10)
+      end
+   end
+end)
+
+local Toggle = Tab:CreateToggle({
+   Name = "Auto Spin Wheel",
+   CurrentValue = false,
+   Flag = "autoSpinWheel", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      _G.autoSpinWheel = Value;  
+   end,
+})
+
+task.spawn(function()
+   while wait() do
+      if _G.autoSpinWheel then
+         game:GetService("ReplicatedStorage").System.SystemDailyLottery.Spin:InvokeServer()
+         wait(10)
+      end
+   end
+end)
+
+
+
+
+
+
+
+
+
+
+local Section = Tab:CreateSection("ESP")
+
+local ESP = loadstring(game:HttpGet("https://kiriot22.com/releases/ESP.lua"))();ESP:Toggle(false);ESP.Names = false;ESP.Tracers = false;ESP.Boxes = false;ESP.FaceCamera = false;ESP.TeamColor = false
+
+Tab:CreateToggle({
+   Name = "ESP",
+   CurrentValue = false,
+   Flag = "ESP",
+   Callback = function(x)
+      ESP:Toggle(x)
+   end
+})
+
+Tab:CreateToggle({
+   Name = "Boxes",
+   CurrentValue = false,
+   Flag = "Boxes",
+   Callback = function(x)
+      ESP.Boxes = x
+   end
+})
+
+Tab:CreateToggle({
+   Name = "Names",
+   CurrentValue = false,
+   Flag = "Names",
+   Callback = function(x)
+      ESP.Names = x
+   end
+})
+
+Tab:CreateToggle({
+   Name = "Tracers",
+   CurrentValue = false,
+   Flag = "Tracers",
+   Callback = function(x)
+      ESP.Tracers = x
+   end
+})
+
+Tab:CreateToggle({
+   Name = "Face Camera",
+   CurrentValue = false,
+   Flag = "FaceCamera",
+   Callback = function(x)
+      ESP.FaceCamera = x
+   end
+})
+
+Tab:CreateToggle({
+   Name = "Team Colour",
+   CurrentValue = false,
+   Flag = "TeamColor",
+   Callback = function(x)
+      ESP.TeamColor = x
+   end
+})
+
+local Section = Tab:CreateSection("Local Player")
+
+local Slider = Tab:CreateSlider({
+	Name = "Change WalkSpeed",
+	Range = {50, 500},
+	Increment = 1,
+	Suffix = "Speed",
+	CurrentValue = 50,
+	Flag = "WalkSpeed", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		_G.ws = Value;
+	end,
+})
+
+local Toggle = Tab:CreateToggle({
+	Name = "Toggle WalkSpeed",
+	CurrentValue = false,
+	Flag = "wsToggle", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		_G.wsToggle = Value;
+	end,
+})
+
+task.spawn(function()
+	while wait() do
+		if _G.wsToggle and _G.ws ~= nil then
+			pcall(function()
+			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = _G.ws
+			end)
+		end
+	end
+end)
+
+local Slider = Tab:CreateSlider({
+	Name = "Change Jumppower",
+	Range = {50, 500},
+	Increment = 1,
+	Suffix = "Jumppower",
+	CurrentValue = 50,
+	Flag = "Jumppower", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		_G.js = Value;
+	end,
+})
+
+local Toggle = Tab:CreateToggle({
+	Name = "Toggle Jumppower",
+	CurrentValue = false,
+	Flag = "jsToggle", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		_G.jsToggle = Value;
+	end,
+})
+
+task.spawn(function()
+	while wait() do
+		if _G.jsToggle and _G.js ~= nil then
+			pcall(function()
+			game.Players.LocalPlayer.Character.Humanoid.JumpPower = _G.js
+			end)
+		end
+	end
+end)
+
+local Slider = Tab:CreateSlider({
+	Name = "Change FOV(Field Of View)",
+	Range = {1, 120},
+	Increment = 1,
+	Suffix = "FOV",
+	CurrentValue = 70,
+	Flag = "FOV", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		_G.FOV = Value;
+	end,
+})
+
+local Toggle = Tab:CreateToggle({
+	Name = "Toggle FOV",
+	CurrentValue = false,
+	Flag = "fovToggle", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		_G.fovToggle = Value;
+	end,
+})
+
+task.spawn(function()
+	while wait() do
+		if _G.fovToggle and _G.FOV ~= nil then
+			pcall(function()
+                game:GetService("Workspace").Camera.FieldOfView = _G.FOV
+			end)
+		end
+	end
+end)
+
+local Tab = Window:CreateTab("Webhook", 4483362458) -- Title, Image
+
+
+
+
+local Slider = Tab:CreateSlider({
+   Name = "Webhook Timer",
+   Info = "Time To Wait Before Every Webhook Sending", -- Speaks for itself, Remove if none.
+   Range = {300, 3000},
+   Increment = 10,
+   Suffix = "Seconds",
+   CurrentValue = 10,
+   Flag = "selTimeWebhook", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      _G.selTimeWebhook = Value; 
+   end,
+})
+
+local Toggle = Tab:CreateToggle({
+   Name = "Auto Send Webhook",
+   CurrentValue = false,
+   Flag = "autoSendWebhook", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      _G.autoSendWebhook = Value;
+   end,
+})
+
+
+task.spawn(function()
+   while wait() do
+      if _G.autoSendWebhook and _G.selTimeWebhook ~= nil and _G.webhook ~= nil then
+         local text = {
+            "**Game: Anime Weapon Simulator **",
+            "*Current Stats: *",
+            "**Current Money: ** :moneybag:".. game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.Main.Left.Coins.Label.Text,
+            "**Current Power: ** :fire:".. game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.Main.Left.Attack.Label.Text,
+            "**Current Rank: ** :angel:".. game:GetService("Workspace")[game.Players.LocalPlayer.Name].NameTag.Rank.Text,
+         }
+         HttpService = game:GetService("HttpService")
+         Webhook_URL = "https://discord.com/api/webhooks/1069666058824339546/z3no-3FwVriv1pgznFpD3xTjcOurd0qDocu5GqfdK5VG2AotEc4vpkatK8NcpXaTpyEF"
+
+         local responce = syn.request(
+            {
+            
+               Url = Webhook_URL,
+               Method = "POST",
+               Headers = {
+                  ["Content-Type"] = "application/json"
+               },
+               Body = HttpService:JSONEncode({
+                  ["content"] = "",
+                  ["embeds"] = {{
+                     ["title"] = "Username: ||"..game.Players.LocalPlayer.Name.."||",
+                     ["description"] = "Stats For: ||".. game.Players.LocalPlayer.Name.."||",
+                     ["type"] = "rich",
+                     ["color"] = tonumber(0xffffff),
+                     ["fields"] = {
+                        {
+                           ["name"] = "Stats",
+                           ["value"] = table.concat(text,'\n'),
+                           ["inline"] = true
+                        }
+                     }
+                  }}
+               })
+            }
+            )
+         task.wait(_G.selTimeWebhook)
+      end
+   end
+end)
+
+
+
+
+Rayfield:LoadConfiguration()
+
